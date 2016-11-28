@@ -25,15 +25,15 @@ INITIALIZE=true meteor
 
 ```js
 var driversLicensePhotocopy = {}
-DocumentReferenceSchemas.insert(driversLicensePhotocopy);
+DocumentReferences.insert(driversLicensePhotocopy);
 ```
 
 ===============================
 #### Extending the Schema
 
 ```js
-ExtendedDocumentReferenceSchemaSchema = new SimpleSchema([
-  DocumentReferenceSchemaSchema,
+ExtendedDocumentReferenceSchema = new SimpleSchema([
+  DocumentReferenceSchema,
   {
     "createdAt": {
       "type": Date,
@@ -41,7 +41,7 @@ ExtendedDocumentReferenceSchemaSchema = new SimpleSchema([
     }
   }
 ]);
-DocumentReferenceSchemas.attachSchema( ExtendedDocumentReferenceSchemaSchema );
+DocumentReferences.attachSchema( ExtendedDocumentReferenceSchema );
 ```
 
 

@@ -7,7 +7,7 @@ JsonRoutes.Middleware.use(
 
 
 
-JsonRoutes.add("get", "/fhir/DocumentReferenceSchema/:id", function (req, res, next) { process.env.DEBUG && console.log('GET /fhir/DocumentReferenceSchema/' + req.params.id);
+JsonRoutes.add("get", "/fhir/DocumentReference/:id", function (req, res, next) { process.env.DEBUG && console.log('GET /fhir/DocumentReference/' + req.params.id);
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   var accessTokenStr = (req.params && req.params.access_token) || (req.query && req.query.access_token);
@@ -19,16 +19,16 @@ JsonRoutes.add("get", "/fhir/DocumentReferenceSchema/:id", function (req, res, n
 
     if (typeof SiteStatistics === "object") {
       SiteStatistics.update({_id: "configuration"}, {$inc:{
-        "DocumentReferenceSchemas.count.read": 1 }});
+        "DocumentReferences.count.read": 1 }});
     }
 
     var id = req.params.id;
-    var documentReferenceSchemaData = DocumentReferenceSchemas.findOne(id); delete documentReferenceSchemaData._document;
-    process.env.TRACE && console.log('documentReferenceSchemaData', documentReferenceSchemaData);
+    var DocumentReferenceData = DocumentReferences.findOne(id); delete DocumentReferenceData._document;
+    process.env.TRACE && console.log('DocumentReferenceData', DocumentReferenceData);
 
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: documentReferenceSchemaData
+      data: DocumentReferenceData
     });
   } else {
     JsonRoutes.sendResult(res, {
@@ -39,7 +39,7 @@ JsonRoutes.add("get", "/fhir/DocumentReferenceSchema/:id", function (req, res, n
 
 
 
-JsonRoutes.add("get", "/fhir/DocumentReferenceSchema", function (req, res, next) { process.env.DEBUG && console.log('GET /fhir/DocumentReferenceSchema', req.query);
+JsonRoutes.add("get", "/fhir/DocumentReference", function (req, res, next) { process.env.DEBUG && console.log('GET /fhir/DocumentReference', req.query);
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   var accessTokenStr = (req.params && req.params.access_token) || (req.query && req.query.access_token);
@@ -51,7 +51,7 @@ JsonRoutes.add("get", "/fhir/DocumentReferenceSchema", function (req, res, next)
 
     if (typeof SiteStatistics === "object") {
       SiteStatistics.update({_id: "configuration"}, {$inc:{
-        "DocumentReferenceSchemas.count.search-type": 1 }});
+        "DocumentReferences.count.search-type": 1 }});
     }
 
     var databaseQuery = {};
@@ -90,16 +90,16 @@ JsonRoutes.add("get", "/fhir/DocumentReferenceSchema", function (req, res, next)
     // }
 
     process.env.DEBUG && console.log('databaseQuery', databaseQuery);
-    process.env.DEBUG && console.log('DocumentReferenceSchemas.find(id)', DocumentReferenceSchemas.find(databaseQuery).fetch()); // because we're using BaseModel and a _transform() function
-    // DocumentReferenceSchemas returns an object instead of a pure JSON document // it stores a shadow reference of the original doc, which we're removing here
-    var documentReferenceSchemaData = DocumentReferenceSchemas.find(databaseQuery).fetch();
-    documentReferenceSchemaData.forEach(function(patient){
+    process.env.DEBUG && console.log('DocumentReferences.find(id)', DocumentReferences.find(databaseQuery).fetch()); // because we're using BaseModel and a _transform() function
+    // DocumentReferences returns an object instead of a pure JSON document // it stores a shadow reference of the original doc, which we're removing here
+    var DocumentReferenceData = DocumentReferences.find(databaseQuery).fetch();
+    DocumentReferenceData.forEach(function(patient){
       delete patient._document;
     });
 
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: documentReferenceSchemaData
+      data: DocumentReferenceData
     });
   } else {
     JsonRoutes.sendResult(res, {
