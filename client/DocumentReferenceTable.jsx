@@ -11,7 +11,7 @@ import { has, get } from 'lodash';
 import { TableNoData } from 'meteor/clinical:glass-ui'
 import PropTypes from 'prop-types';
 
-import FaFilePdfO from 'react-icons/lib/fa/file-pdf-o';
+// import FaFilePdfO from 'react-icons/lib/fa/file-pdf-o';
 
 Session.setDefault('csiGuid', '')
 export class DocumentReferenceTable extends React.Component {
