@@ -44,7 +44,7 @@ jobs:
         NPM_PREFIX: /home/ubuntu/nvm/v0.10.33
         MONGO_URL: mongodb://mongo:27017/meteor
         DEBUG: true
-    - image: mongo:3.4.5
+    - image: mongo:4.2.0
       name: mongo
 
     # - image: selenium/standalone-chrome:3.0.1
